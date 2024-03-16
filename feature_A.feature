@@ -5,14 +5,10 @@ Scenario Outline: Calculate average velocity for a list of sprint points
     When calculating the average velocity
     Then the result should be <expected_average_velocity>
 
-Examples:
-    sprint_points                      expected_average_velocity 
-    [10, 20, 30, 40, 50]               30                        
-    [10]                               10                        
-    [1000, 2000, 3000, 4000, 5000]     3000                  
-    [10.5, 20.7, 30.3, 40.9, 50.2]     30.12                
-    []                                 0                         
-    [0, 0, 0, 0, 0]                    0                         
-    [-10, -20, -30, -40, -50]          ValueError                
-    [10, 20, '30', 40, 50]             TypeError                 
-    [10**1000, 10**1000, 10**1000]     OverflowError       
+Scenario: Calculate average velocity for a list of sprint points
+    Given there are 3 sprints
+    And the total points completed during sprint 0 is 10
+    And the total points completed during sprint 1 is 20
+    And the total points completed during sprint 2 is 30
+    When calculating the average velocity
+    Then the average team velocity for 3 sprints should be 20

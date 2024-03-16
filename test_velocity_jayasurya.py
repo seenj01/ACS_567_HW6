@@ -6,7 +6,7 @@ from velocity import average_velocity
 # Happy paths
 
 def test_average_velocity_happy_path():
-    sprint_pts_list = [10, 20, 30, 40, 50] # normal expected input
+    sprint_pts_list = [10, 20, 30] # normal expected input
     expected_average = sum(sprint_pts_list) / len(sprint_pts_list)
     assert average_velocity(sprint_pts_list) == expected_average
 

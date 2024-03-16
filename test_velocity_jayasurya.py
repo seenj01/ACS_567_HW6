@@ -1,7 +1,9 @@
 import pytest
 from velocity import calculate_average_velocity
 
-# happy paths
+# Unit tests
+
+# Happy paths
 
 def test_calculate_average_velocity_happy_path():
     sprint_pts_list = [10, 20, 30, 40, 50] # normal expected input
@@ -22,7 +24,7 @@ def test_calculate_average_velocity_happy_path_float_numbers():
     expected_average = sum(sprint_pts_list) / len(sprint_pts_list)
     assert calculate_average_velocity(sprint_pts_list) == expected_average
 
-# unhappy paths
+# Unhappy paths
 
 def test_calculate_average_velocity_unhappy_path_empty_list():
     sprint_pts_list = [] # empty list input

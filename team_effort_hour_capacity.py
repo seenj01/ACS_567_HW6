@@ -1,4 +1,12 @@
-def calculate_available_effort_hours(teammate_cnt, available_hrs, pto_hours, sprint_ceremony_hrs, sprint_days):
+def calculate_remaining_hours(available, pto, ceremony):
+    remaining_hours = available - pto - ceremony
+    if remaining_hours < 0:
+        raise ValueError("Remaining hours cannot be less than 0")
+    return remaining_hours
+
+
+
+def available_effort_hours(teammate_cnt, available_hrs, pto_hours, sprint_ceremony_hrs, sprint_days):
     if sprint_days == 0 or teammate_cnt == 0:
         return 0
 
@@ -7,8 +15,10 @@ def calculate_available_effort_hours(teammate_cnt, available_hrs, pto_hours, spr
 
     if available_hrs > (1 << 32) or pto_hours > (1 << 32) or sprint_ceremony_hrs > (1 << 32) or sprint_days > (1 << 32) or teammate_cnt > (1 << 32):
         raise OverflowError("Input values are too large")
+    
+    remaining_hrs = calculate_remaining_hours(available_hrs, pto_hours, sprint_ceremony_hrs)
 
-    return (available_hrs - pto_hours - sprint_ceremony_hrs) * sprint_days * teammate_cnt
+    return remaining_hrs * sprint_days * teammate_cnt
 
 
 
@@ -24,7 +34,7 @@ if __name__ == "__main__":
         pto_hours = int(input("Enter number of PTO hours per day: "))
         sprint_ceremony_hrs = int(input("Enter number of hours per day committed to sprint ceremonies: "))
 
-        available_effort_hrs = calculate_available_effort_hours(teammate_cnt, available_hrs, pto_hours, sprint_ceremony_hrs, sprint_days)
+        available_effort_hrs = available_effort_hours(teammate_cnt, available_hrs, pto_hours, sprint_ceremony_hrs, sprint_days)
 
         team_available_effort_hrs += available_effort_hrs
 
